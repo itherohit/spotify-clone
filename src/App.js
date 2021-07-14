@@ -9,7 +9,7 @@ import { useStateValue } from './components/StateProvider';
 const spotify = new SpotifyWebApi();
 
 function App() {
-  const [{ user, token },dispatch] = useStateValue();
+  const [{token},dispatch] = useStateValue();
 
   useEffect(() => {
     const hash = getTokenFromUrl();
@@ -35,15 +35,27 @@ function App() {
         });
       })
 
-      spotify.getPlaylist("37i9dQZEVXcUCHBjZBZn0e").then((response) =>
+      spotify.getMyTopTracks().then((response) =>
         dispatch({
           type: "SET_DISCOVER_WEEKLY",
           discover_weekly: response,
         })
       );
+      spotify.getMyRecentlyPlayedTracks().then(recently_played => {
+        dispatch({
+          type: "SET_RECENTLY",
+          recently_played: recently_played,
+        })
+      })
+      spotify.getMyTopArtists().then(top_artists => {
+        dispatch({
+          type: "SET_TOP_ARTISTS",
+          top_artists: top_artists,
+        })
+      })
+
     }
   }, []);
-  console.log(user);
   return (
     <div className="app">
       {!token && <Login />}

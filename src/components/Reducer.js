@@ -3,10 +3,12 @@ export const initialState = {
     playlists: [],
     spotify: null,
     discover_weekly: null,
+    recently_played: null,
     top_artists: null,
     playing: false,
     item: null,
-    token: null
+    token: null,
+    footer: true
   };
   
 const reducer = (state, action) => {
@@ -58,6 +60,16 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 playlists: action.playlists,
+            };
+        case "SET_RECENTLY":
+            return {
+                ...state,
+                recently_played: action.recently_played,
+            };
+        case "SET_FOOTER":
+            return {
+                ...state,
+                footer: action.footer,
             };
         default:
             return state;

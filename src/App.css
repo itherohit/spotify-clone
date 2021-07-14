@@ -3,6 +3,7 @@
   padding: 0;
   text-decoration: none;
   border: none;
+  transition: 0.3s all;
 }
 
 .login {
@@ -53,12 +54,15 @@
   height: 100vh;
   color: white;
   background-color: #040404;
+  transition: 0.3s all;
 }
 
 .sidebar__title {
   margin-left: 10px;
   padding: 5px;
-  font-size: 12px;
+  font-size: 13px;
+  letter-spacing: 5px;
+  font-weight: bold;
 }
 
 .sidebar__logo {
@@ -194,7 +198,7 @@
 }
 
 .header__left {
-  flex: 0.5;
+  flex: 0.4;
   display: flex;
   background-color: white;
   padding: 10px;
@@ -251,16 +255,17 @@
 /* Footer */
 
 .footer {
-  position: fixed;
+  position: absolute;
   display: flex;
   justify-content: space-between;
   bottom: 0;
-  padding: 20px;
+  padding: 20px 0px;
   height: 55px;
-  width: 97%;
-  background-color: #282828;
+  width: 100%;
+  background-color: #1d1d1d;
+  z-index: 10;
+  max-width: 100vw;
 }
-
 .footer__right * .MuiSlider-root {
   color: green;
 }
@@ -270,6 +275,7 @@
   color: white;
   width: 300px;
   flex: 0.3;
+  margin-left: 20px;
 }
 
 .footer__green {
@@ -298,6 +304,7 @@
   align-items: center;
   color: white;
   flex: 0.3;
+  margin-right: 20px;
 }
 
 .footer__albumLogo {
@@ -313,4 +320,181 @@
 
 .footer__songInfo > p {
   font-size: 12px;
+}
+
+.artist__row {
+  display: flex;
+  overflow-x: scroll;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 50px;
+}
+
+.artist__image {
+  border-radius: 50%;
+  margin: 20px;
+}
+
+.artist__name {
+  font-size: 1rem;
+}
+
+.artist__row::-webkit-scrollbar {
+  display: none;
+}
+
+.search__input {
+  font-size: 0.9rem;
+  height: 100%;
+  border: none;
+  text-decoration: none;
+  outline: none;
+  margin-left: 10px;
+}
+
+.playlist__container {
+  overflow-x: scroll;
+}
+
+.playlist__container::-webkit-scrollbar {
+  display: none;
+}
+
+.playback {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: black;
+}
+
+.playback__loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  z-index: 0;
+}
+
+.playback__player {
+  position: absolute;
+  z-index: 1;
+}
+
+.playback__overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  top: 0;
+}
+
+.full__icon {
+  position: absolute;
+  z-index: 5;
+  top: 20;
+  right: 50;
+  font-size: 5rem;
+  margin: 20px;
+  cursor: pointer;
+  color: grey;
+}
+
+.close {
+  min-width: 0;
+}
+
+.dropbtn {
+  background-color: transparent;
+  color: grey;
+  padding: 6px;
+  font-size: 16px;
+  border: 2px solid grey;
+  cursor: pointer;
+  border-radius: 5px;
+  position: absolute;
+  top: 20;
+  z-index: 5;
+  right: 20;
+  margin: 60px 0px;
+  padding: 10px;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  margin-left: 20px;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: rgb(197, 197, 197);
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 6;
+}
+
+/* Links inside the dropdown */
+.dropdown-content .a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  font-weight: bold;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content .a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: transparent;
+}
+
+/* Loader */
+.lds-ripple {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-ripple div {
+  position: absolute;
+  border: 4px solid #fff;
+  opacity: 1;
+  border-radius: 50%;
+  animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.lds-ripple div:nth-child(2) {
+  animation-delay: -0.5s;
+}
+@keyframes lds-ripple {
+  0% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    top: 0px;
+    left: 0px;
+    width: 72px;
+    height: 72px;
+    opacity: 0;
+  }
+}
+
+.hide {
+  opacity: 0;
+  display: none;
 }

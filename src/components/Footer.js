@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState,useEffect } from "react";
 import { useStateValue } from "./StateProvider";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
@@ -11,12 +11,17 @@ import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
 import { Grid, Slider } from "@material-ui/core";
 
 function Footer({ spotify }) {
-  const [{ item, playing }, dispatch] = useStateValue();
-
+  const [{ item, playing,footer }, dispatch] = useStateValue();
+  const [vol,setVol] = useState([0,100]);
+  const updateVol = (e,data) => {
+    setVol(data);
+    spotify.setVolume(vol);
+  }
+  useEffect(() => {
+    setVol(100);
+  },[]);
   useEffect(() => {
     spotify.getMyCurrentPlaybackState().then((r) => {
-      console.log(r);
-
       dispatch({
         type: "SET_PLAYING",
         playing: r.is_playing,
@@ -27,7 +32,7 @@ function Footer({ spotify }) {
         item: r.item,
       });
     });
-  }, [spotify]);
+  }, [item,playing]);
 
   const handlePlayPause = () => {
     if (playing) {
@@ -47,34 +52,37 @@ function Footer({ spotify }) {
 
   const skipNext = () => {
     spotify.skipToNext();
-    spotify.getMyCurrentPlayingTrack().then((r) => {
+    spotify.getMyCurrentPlaybackState().then((r) => {
+      dispatch({
+        type: "SET_PLAYING",
+        playing: r.is_playing,
+      });
+
       dispatch({
         type: "SET_ITEM",
         item: r.item,
-      });
-      dispatch({
-        type: "SET_PLAYING",
-        playing: true,
       });
     });
   };
 
   const skipPrevious = () => {
     spotify.skipToPrevious();
-    spotify.getMyCurrentPlayingTrack().then((r) => {
+    spotify.getMyCurrentPlaybackState().then((r) => {
+      dispatch({
+        type: "SET_PLAYING",
+        playing: r.is_playing,
+      });
+
       dispatch({
         type: "SET_ITEM",
         item: r.item,
       });
-      dispatch({
-        type: "SET_PLAYING",
-        playing: true,
-      });
     });
   };
 
+
   return (
-    <div className="footer">
+    <div className={footer ? "footer" : "footer hide"}>
       <div className="footer__left">
         <img
           className="footer__albumLogo"
@@ -96,7 +104,7 @@ function Footer({ spotify }) {
 
       <div className="footer__center">
         <ShuffleIcon className="footer__green" />
-        <SkipPreviousIcon onClick={skipNext} className="footer__icon" />
+        <SkipPreviousIcon onClick={skipPrevious} className="footer__icon" />
         {playing ? (
           <PauseCircleOutlineIcon
             onClick={handlePlayPause}
@@ -110,7 +118,7 @@ function Footer({ spotify }) {
             className="footer__icon"
           />
         )}
-        <SkipNextIcon onClick={skipPrevious} className="footer__icon" />
+        <SkipNextIcon onClick={skipNext} className="footer__icon" />
         <RepeatIcon className="footer__green" />
       </div>
       <div className="footer__right">
@@ -122,7 +130,7 @@ function Footer({ spotify }) {
             <VolumeDownIcon />
           </Grid>
           <Grid item xs>
-            <Slider aria-labelledby="continuous-slider" />
+            <Slider value={vol} onChange={updateVol} aria-labelledby="continuous-slider" />
           </Grid>
         </Grid>
       </div>
