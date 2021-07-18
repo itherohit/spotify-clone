@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Spotify clone with Drive and Study mode
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+View App - [Spotify Clone](https://spotify-clone-275ce.web.app/).
 
 ## Available Scripts
 
